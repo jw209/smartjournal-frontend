@@ -1,9 +1,19 @@
-# expo-template-native-base-typescript
+# SmartJournal Mobile Application
 
-The official NativeBase TypeScript template for [Expo](https://docs.expo.io/)
+## Getting Started
 
-## Usage
+You need NPM, Yarn, the Expo CLI, and the Expo App (on your phone).
 
 ```sh
-expo init my-app --template expo-template-native-base-typescript
+# after you installed NodeJS
+$ npm i -g yarn expo-cli
 ```
+
+Clone the repository and open a terminal in it.
+
+```sh
+$ yarn
+$ yarn start
+```
+
+This will display a QR code you can scan with the Expo App to start developing.
