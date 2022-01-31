@@ -1,13 +1,13 @@
 import React from "react";
 import { View } from "react-native";
-import ToggleDarkMode from "../components/ToggleDarkMode";
+import { Text } from "native-base";
 
-const Settings = ({ navigation }: any) => {
+const Journal = ({ navigation }: any) => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <ToggleDarkMode />
+      <Text>Journal page</Text>
     </View>
   );
 };
 
-export default Settings;
+export default Journal;

@@ -1,9 +1,10 @@
 import React from "react";
-import { useColorMode, HStack, Text, Switch } from "native-base";
+import { HStack, Text, Switch } from "native-base";
+
+// We will use this later, theming is not on our priority list
 
 // Color Switch Component
-function ToggleDarkMode() {
-  const { colorMode, toggleColorMode } = useColorMode();
+function ToggleDarkMode({ colorMode, toggleColorMode }: any) {
   return (
     <HStack space={2} alignItems="center">
       <Text>Dark</Text>
