@@ -1,14 +1,10 @@
 import React from "react";
-import {
-  Text,
-  HStack,
-  Center,
-  Switch,
-  useColorMode,
-  NativeBaseProvider,
-  extendTheme,
-} from "native-base";
-import Navigation from "./src/components/Navigation";
+import { NativeBaseProvider, extendTheme } from "native-base";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+// pages
+import Home from "./pages/Home";
+import Settings from "./pages/Settings";
 
 // Define the config
 const config = {
@@ -19,36 +15,32 @@ const config = {
 // extend the theme
 export const theme = extendTheme({ config });
 
+const Drawer = createDrawerNavigator();
+
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <Center
-        _dark={{ bg: "blueGray.900" }}
-        _light={{ bg: "blueGray.50" }}
-        px={4}
-        flex={1}
-      >
-        <Navigation />
-        <ToggleDarkMode />
-      </Center>
-    </NativeBaseProvider>
+    <NavigationContainer>
+      <NativeBaseProvider>
+        <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="Home" component={Home} />
+          <Drawer.Screen name="Settings" component={Settings} />
+        </Drawer.Navigator>
+      </NativeBaseProvider>
+    </NavigationContainer>
   );
 }
-
-// Color Switch Component
-function ToggleDarkMode() {
-  const { colorMode, toggleColorMode } = useColorMode();
-  return (
-    <HStack space={2} alignItems="center">
-      <Text>Dark</Text>
-      <Switch
-        isChecked={colorMode === "light" ? true : false}
-        onToggle={toggleColorMode}
-        aria-label={
-          colorMode === "light" ? "switch to dark mode" : "switch to light mode"
-        }
-      />
-      <Text>Light</Text>
-    </HStack>
-  );
-}
+// export default function App() {
+//   return (
+//     <NativeBaseProvider>
+//       <Center
+//         _dark={{ bg: "blueGray.900" }}
+//         _light={{ bg: "blueGray.50" }}
+//         px={4}
+//         flex={1}
+//       >
+//         <Navigation />
+//         <ToggleDarkMode />
+//       </Center>
+//     </NativeBaseProvider>
+//   );
+// }
