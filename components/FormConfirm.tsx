@@ -17,9 +17,6 @@ const FormConfirm = (entry: any) => {
             </Popover.Body>
             <Popover.Footer justifyContent="flex-end">
               <Button.Group space={2}>
-                <Button colorScheme="danger" variant="ghost">
-                  Cancel
-                </Button>
                 <Button colorScheme="primary" onPress={() => console.log(entry)}>Add</Button>
               </Button.Group>
             </Popover.Footer>
