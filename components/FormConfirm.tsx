@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Popover, Button } from "native-base";
 
-const FormConfirm = () => {
-    return <Box h="60%" w="100%" alignItems="center">
+const FormConfirm = (entry: any) => {
+    return <Box h="60%" w="30%" paddingTop={5}>
         <Popover trigger={triggerProps => {
-        return <Button {...triggerProps} colorScheme="danger">
+        return <Button {...triggerProps} colorScheme="primary">
                 Add entry
               </Button>;
       }}>
@@ -17,10 +17,10 @@ const FormConfirm = () => {
             </Popover.Body>
             <Popover.Footer justifyContent="flex-end">
               <Button.Group space={2}>
-                <Button colorScheme="coolGray" variant="ghost">
+                <Button colorScheme="danger" variant="ghost">
                   Cancel
                 </Button>
-                <Button colorScheme="danger">Delete</Button>
+                <Button colorScheme="primary" onPress={() => console.log(entry)}>Add</Button>
               </Button.Group>
             </Popover.Footer>
           </Popover.Content>
