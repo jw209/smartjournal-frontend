@@ -8,10 +8,15 @@ import {
   FormControl,
   Input,
   Button,
+  useToast,
 } from "native-base";
 // import { View } from "native-base";
 
 const Register = () => {
+  const toast = useToast();
+
+  const handleRegister = async () => {};
+
   return (
     <Center w="100%">
       <Box safeArea p="2" w="90%" maxW="290" py="8">
