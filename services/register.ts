@@ -10,7 +10,7 @@ const register = async (email: string, password: string) => {
     return {
       error,
       user: null,
-      auth: null,
+      session: null,
     };
   }
 

@@ -18,9 +18,6 @@ const config = {
   initialColorMode: "dark",
 };
 
-// this will change
-const loggedIn = false;
-
 // extend the theme
 export const theme = extendTheme({ config });
 
