@@ -1,21 +1,18 @@
 import React from "react";
 import { Box, Popover, Button } from "native-base";
 import supabase from "../services/supabaseClient"
-import { useUser } from "./UserContext"
 
 const FormConfirm = (entry: any) => {
 
-  const { user } = useUser();
+  const { created_at, text, feelings, user } = entry;
 
-  const addJournal = async (entry: string) => {
-    const journal = entry.trim();
-    if (journal.length) {
-      const { data: todo, error } = await supabase
-        .from('journals')
-        .insert({ journal, user: user.id })
-        .single()
-      if (error) console.log(error.message)
-    }
+  const addJournal = async (created_at: any, text: any, feelings: any, user: any) => {
+    const { data: todo, error } = await supabase
+      .from('journals')
+      .insert({ created_at: created_at, text: text, feelings: feelings, user: user })
+      .single()
+    if (error) console.log(error.message)
+    console.log("insert ran!")
   }
 
   return <Box h="60%" w="30%" paddingTop={5}>
@@ -34,8 +31,11 @@ const FormConfirm = (entry: any) => {
           <Popover.Footer justifyContent="flex-end">
             <Button.Group space={2}>
               <Button colorScheme="primary" onPress={() => { 
-                  addJournal(entry);
-                  console.log(entry);
+                  console.log(created_at);
+                  console.log(text);
+                  console.log(feelings);
+                  console.log(user);
+                  addJournal(created_at, text, feelings, user);
                 }}>Add</Button>
             </Button.Group>
           </Popover.Footer>
