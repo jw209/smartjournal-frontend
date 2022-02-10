@@ -2,8 +2,10 @@ import React from "react";
 import { NativeBaseProvider, extendTheme } from "native-base";
 import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // pages
+import Welcome from "./pages/Welcome";
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import Journal from "./pages/Journal";
@@ -22,30 +24,38 @@ const config = {
 export const theme = extendTheme({ config });
 
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const { user } = useUser();
 
+  if (user) {
+    return (
+      <UserContextProvider>
+        <NavigationContainer theme={DarkTheme}>
+          <NativeBaseProvider theme={theme}>
+            <Drawer.Navigator initialRouteName="Home">
+              <Drawer.Screen name="Home" component={Home} />
+              <Drawer.Screen name="Journal" component={Journal} />
+              <Drawer.Screen name="Settings" component={Settings} />)
+              <Drawer.Screen name="Logout" component={Logout} />
+            </Drawer.Navigator>
+          </NativeBaseProvider>
+        </NavigationContainer>
+      </UserContextProvider>
+    );
+  }
   return (
     <UserContextProvider>
-      <NavigationContainer theme={DarkTheme}>
-        <NativeBaseProvider theme={theme}>
-          <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Home" component={Home} />
-            <Drawer.Screen name="Journal" component={Journal} />
-            <Drawer.Screen name="Settings" component={Settings} />
-
-            {user ? (
-              <Drawer.Screen name="Logout" component={Logout} />
-            ) : (
-              <>
-                <Drawer.Screen name="Login" component={Login} />
-                <Drawer.Screen name="Register" component={Register} />
-              </>
-            )}
-          </Drawer.Navigator>
-        </NativeBaseProvider>
-      </NavigationContainer>
+      <NativeBaseProvider theme={theme}>
+        <NavigationContainer theme={DarkTheme}>
+          <Stack.Navigator initialRouteName="Welcome">
+            <Stack.Screen name="Welcome" component={Welcome} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </NativeBaseProvider>
     </UserContextProvider>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { View } from "react-native";
 import {
   Heading,
   Center,
@@ -48,64 +48,64 @@ const Login = ({ navigation }: any) => {
       description: "You have successfully logged in!",
       accessibilityLiveRegion: "assertive",
     });
-
-    navigation.navigate("Home");
   };
 
   return (
-    <Center w="100%">
-      <Box safeArea p="2" py="8" w="90%" maxW="290">
-        <Heading
-          size="lg"
-          fontWeight="600"
-          color="coolGray.800"
-          _dark={{
-            color: "warmGray.50",
-          }}
-        >
-          Welcome
-        </Heading>
-        <Heading
-          mt="1"
-          _dark={{
-            color: "warmGray.200",
-          }}
-          color="coolGray.600"
-          fontWeight="medium"
-          size="xs"
-        >
-          Sign in to continue!
-        </Heading>
-
-        <VStack space={3} mt="5">
-          <FormControl>
-            <FormControl.Label>Email ID</FormControl.Label>
-            <Input value={email} onChangeText={setEmail} />
-          </FormControl>
-          <FormControl>
-            <FormControl.Label>Password</FormControl.Label>
-            <Input value={passwd} onChangeText={setPasswd} type="password" />
-            <Link
-              _text={{
-                fontSize: "xs",
-                fontWeight: "500",
-                color: "indigo.500",
-              }}
-              alignSelf="flex-end"
-              mt="1"
-            >
-              Forget Password?
-            </Link>
-          </FormControl>
-          <Button
-            onPress={handleLogin}
-            disabled={isLoading}
-            mt="2"
-            colorScheme="indigo"
+    <View>
+      <Center w="100%">
+        <Box safeArea p="2" py="8" w="90%" maxW="290">
+          <Heading
+            size="lg"
+            fontWeight="600"
+            color="coolGray.800"
+            _dark={{
+              color: "warmGray.50",
+            }}
           >
-            Sign in
-          </Button>
-          {/* <HStack mt="6" justifyContent="center">
+            Welcome
+          </Heading>
+          <Heading
+            mt="1"
+            _dark={{
+              color: "warmGray.200",
+            }}
+            color="coolGray.600"
+            fontWeight="medium"
+            size="xs"
+          >
+            Sign in to continue!
+          </Heading>
+
+          <VStack space={3} mt="5">
+            <FormControl>
+              <FormControl.Label>Email ID</FormControl.Label>
+              <Input value={email} onChangeText={setEmail} />
+            </FormControl>
+            <FormControl>
+              <FormControl.Label>Password</FormControl.Label>
+              <Input value={passwd} onChangeText={setPasswd} type="password" />
+              <Link
+                _text={{
+                  fontSize: "xs",
+                  fontWeight: "500",
+                  color: "indigo.500",
+                }}
+                alignSelf="flex-end"
+                mt="1"
+              >
+                Forget Password?
+              </Link>
+            </FormControl>
+            <Button
+              onPress={handleLogin}
+              disabled={isLoading}
+              mt="2"
+              variant="outline"
+              colorScheme="secondary"
+            >
+              Sign In
+            </Button>
+            {/* <HStack mt="6" justifyContent="center">
             <Text
               fontSize="sm"
               color="coolGray.600"
@@ -126,9 +126,10 @@ const Login = ({ navigation }: any) => {
               Sign Up
             </Link>
           </HStack> */}
-        </VStack>
-      </Box>
-    </Center>
+          </VStack>
+        </Box>
+      </Center>
+    </View>
   );
 };
 
