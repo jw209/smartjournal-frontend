@@ -1,23 +1,29 @@
 import React, { useState } from "react";
-import { TextArea, Box, Text } from "native-base"
+import { TextArea, Box, Text, Button } from "native-base"
 import { useUser } from "./UserContext"
-
-// import components
-import FormConfirm from "./FormConfirm";
+import supabase from "../services/supabaseClient"
+import "react-native-url-polyfill/auto"
 
 const Form = () => {
     const { user } = useUser();
     const [formData, setData] = useState({});
+
+    const addJournal = async (payload: any) => {
+      const { entry, user_id } = payload;
+      const { data, error } = await supabase
+      .from('journals')
+      .insert([
+        { entry, user_id },
+      ])
+      if (error) console.log(error.message);
+    }
   
     return <Box width="90%" mx="9" maxW="80%" paddingTop={5}>
-          <TextArea placeholder="Whats on your mind?" height="20%" onChangeText={value => setData({ ...formData,
-          created_at: new Date().toDateString(),
-          text: value,
-          feelings: null,
-          user: user
-        })} maxLength={150} color="white" onSubmitEditing={() => {
-        }}/>
-        <FormConfirm {...formData}/>
+          <TextArea placeholder="Whats on your mind?" height="40%" onChangeText={value => setData({ ...formData,
+          entry: value,
+          user_id: user!.id
+        })} maxLength={150} color="white"/>
+        <Button marginTop={4} width="50%" onPress={() => addJournal({...formData})}>Add journal</Button>
       </Box>
       
 }
