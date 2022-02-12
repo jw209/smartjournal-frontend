@@ -1,11 +1,12 @@
 import React from "react";
+import supabase from "../services/supabaseClient";
 
-import { View, Text } from "react-native";
+import { View, Button, Text } from "react-native";
 
-const Logout = ({ navigation }: any) => {
+const Logout = () => {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Logout page</Text>
+    <View>
+      <Button title="Sign out" onPress={() => supabase.auth.signOut()} />
     </View>
   );
 };
