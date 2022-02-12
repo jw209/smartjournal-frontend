@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, VStack } from "native-base"
+import { VStack } from "native-base"
 import { Keyboard } from "react-native";
 
 // import components

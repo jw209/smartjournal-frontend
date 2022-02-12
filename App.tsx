@@ -26,35 +26,42 @@ export const theme = extendTheme({ config });
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+function LoggedInNav() {
+  return (
+    <NavigationContainer theme={DarkTheme}>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="Journal" component={Journal} />
+        <Drawer.Screen name="Settings" component={Settings} />
+        <Drawer.Screen name="Logout" component={Logout} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function LoggedOutNav() {
+  return (
+    <NavigationContainer theme={DarkTheme}>
+      <Stack.Navigator initialRouteName="Welcome">
+        <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function Container() {
   const { user } = useUser();
 
-  if (user) {
-    return (
-      <UserContextProvider>
-        <NavigationContainer theme={DarkTheme}>
-          <NativeBaseProvider theme={theme}>
-            <Drawer.Navigator initialRouteName="Home">
-              <Drawer.Screen name="Home" component={Home} />
-              <Drawer.Screen name="Journal" component={Journal} />
-              <Drawer.Screen name="Settings" component={Settings} />)
-              <Drawer.Screen name="Logout" component={Logout} />
-            </Drawer.Navigator>
-          </NativeBaseProvider>
-        </NavigationContainer>
-      </UserContextProvider>
-    );
-  }
+  return user ? <LoggedInNav /> : <LoggedOutNav />
+}
+
+export default function App() {
   return (
     <UserContextProvider>
       <NativeBaseProvider theme={theme}>
-        <NavigationContainer theme={DarkTheme}>
-          <Stack.Navigator initialRouteName="Welcome">
-            <Stack.Screen name="Welcome" component={Welcome} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
-          </Stack.Navigator>
-        </NavigationContainer>
+          <Container />
       </NativeBaseProvider>
     </UserContextProvider>
   );
