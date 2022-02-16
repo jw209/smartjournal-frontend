@@ -29,6 +29,7 @@ const Login = ({ navigation }: any) => {
       toast.show({
         description: "Email is invalid!",
         accessibilityLiveRegion: "assertive",
+        status: "error"
       });
       setIsLoading(false);
       return;
@@ -40,6 +41,7 @@ const Login = ({ navigation }: any) => {
       toast.show({
         description: "There was an issue logging you in. Please try again.",
         accessibilityLiveRegion: "assertive",
+        status: "error"
       });
       return;
     }
@@ -47,6 +49,7 @@ const Login = ({ navigation }: any) => {
     toast.show({
       description: "You have successfully logged in!",
       accessibilityLiveRegion: "assertive",
+      status: "success"
     });
   };
 
