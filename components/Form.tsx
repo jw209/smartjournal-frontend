@@ -19,7 +19,7 @@ const Form = () => {
     }
   
     return <Box width="90%" mx="9" maxW="80%" paddingTop={5}>
-          <TextArea placeholder="Whats on your mind?" height="40%" onChangeText={value => setData({ ...formData,
+          <TextArea placeholder="Whats on your mind?" height="30%" onChangeText={value => setData({ ...formData,
           entry: value,
           user_id: user!.id
         })} maxLength={150} color="white"/>

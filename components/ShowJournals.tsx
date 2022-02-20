@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Center, Text, Container, Heading, VStack } from "native-base"
+import { Center, ScrollView, VStack } from "native-base"
 import { useUser } from "./UserContext"
 import supabase from "../services/supabaseClient"
 import "react-native-url-polyfill/auto"
 
 
 type Journal = {
-    entry: string;
+    entry: string
+    created_at: Date
 }
 
 const ShowJournals = () => {
@@ -23,15 +24,18 @@ const ShowJournals = () => {
             .select("entry").eq('user_id',  user!.id)
       if (error) console.log(error.message);
       setFormData(journals!)
+      formData.sort((x, y) => +new Date(y.created_at) - +new Date(x.created_at));
     }
-    
-    return <VStack space={4} alignItems="center">
-      <Container>
-        {formData.map(journal => <Text>
-          {journal.entry}
-        </Text>)}    
-      </Container>
-    </VStack>;
+
+    return <ScrollView maxW="400" h="80">
+      <VStack space={4} alignItems="center">
+          {formData.map(journal => 
+            <Center w="80" h="20" bg="indigo.100" rounded="md" padding={2} shadow={3}>
+                {journal.entry}
+            </Center>)}
+      </VStack>
+    </ScrollView> 
+      
 }
 
 export default ShowJournals;
