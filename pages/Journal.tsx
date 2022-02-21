@@ -6,7 +6,7 @@ import { Keyboard } from "react-native";
 import Form from "../components/Form"
 
 const Journal = () => {
-  return <Container onTouchStart={() => Keyboard.dismiss()}>
+  return <Container w="full">
     <Form />
   </Container>
 }

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { TextArea, Text, Button, Center, useToast, ScrollView, Container, VStack } from "native-base";
+import { TextArea, Text, Button, useToast, ScrollView, VStack, Container } from "native-base";
 import { useUser } from "./UserContext";
 import supabase from "../services/supabaseClient";
 import "react-native-url-polyfill/auto";
+import moment from "moment";
 
 type Journal = {
   id: number
   entry: string
-  created_at: Date
+  created_at: string
 }
 
 const Form = () => {
@@ -36,11 +37,11 @@ const Form = () => {
 
     // add journal to the database 
     const addJournal = async (payload: any) => {
-      const { entry, user_id } = payload;
+      const { entry, user_id, created_at } = payload;
       const { data, error } = await supabase
       .from('journals')
       .insert([
-        { entry, user_id },
+        { entry, user_id, created_at },
       ])
       if (error) {
         console.log(error.message);
@@ -54,18 +55,24 @@ const Form = () => {
       getUserJournals();
     }
   
-    return <VStack paddingLeft={3} space={2} paddingTop={4} width={300}>
-          <TextArea placeholder="Whats on your mind?" height={100} maxHeight={100} width={300} maxWidth={300} onChangeText={value => setSendData({ ...sendData,
+    return <VStack alignContent="center" paddingTop={4} paddingLeft={3} space={3} w="xs">
+          <TextArea placeholder="Whats on your mind?" w="xs" margin="auto" onChangeText={value => setSendData({ ...sendData,
             entry: value,
-            user_id: user!.id
+            user_id: user!.id,
+            created_at: moment().toString()
           })} maxLength={150} color="white"/>
-          <Button width={100} marginTop={3} onPress={() => addJournal({...sendData})}>Add journal</Button>
-          <ScrollView width={400}>
-            <Container paddingTop={3}>
-              {showData.map(journal => <Text width={300} marginBottom={3} key={journal.id}>
-                {journal.entry}
-                </Text>)}    
-            </Container>
+          <Button width="xs" onPress={() => addJournal({...sendData})}>Add journal</Button>
+          <ScrollView w="lg" maxH="77%">
+            <VStack space={4} w="lg">
+              {showData.map(journal => <Container key={journal.id}>
+                <Text w="xs" color="success.600">
+                  {journal.created_at}
+                </Text>
+                <Text w="xs">
+                  {journal.entry}
+                </Text>
+              </Container>)}
+            </VStack>
           </ScrollView>
       </VStack>
 }
