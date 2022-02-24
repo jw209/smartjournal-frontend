@@ -1,14 +1,14 @@
 import React from "react";
-import { VStack } from "native-base"
+import { Container } from "native-base"
 import { Keyboard } from "react-native";
 
 // import components
 import Form from "../components/Form"
 
 const Journal = () => {
-  return <VStack flex={1} onTouchStart={() => Keyboard.dismiss()}>
-      <Form />
-    </VStack>;
+  return <Container w="full">
+    <Form />
+  </Container>
 }
 
 export default Journal;
