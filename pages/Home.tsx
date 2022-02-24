@@ -1,13 +1,16 @@
 import React from "react";
-import { View, Button } from "react-native";
+import { View, Heading, Divider } from "native-base";
 
 const Home = ({ navigation }: any) => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button
-        onPress={() => navigation.navigate("Settings")}
-        title="Go to Settings"
-      />
+      <Heading>
+        Calendar
+      </Heading>
+      <Divider my="5" />
+      <Heading>
+        Summary
+      </Heading>
     </View>
   );
 };
