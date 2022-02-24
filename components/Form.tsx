@@ -24,7 +24,7 @@ const emojiMap = new Map([
 
 const Form = () => {
     const { user } = useUser();
-    const [sendData, setSendData] = useState({});
+    const [sendData, setSendData] = useState({entry: "", mood: "grinning", user_id: user?.id ?? null, created_at: ""});
     const [showData, setShowData] = useState<Array<Journal>>([]);
     const [mood, setMood] = useState('grinning');
     const toast = useToast();
@@ -64,6 +64,7 @@ const Form = () => {
         status: "success",
         placement: "bottom"
       })
+      setSendData({...sendData, entry: "", mood: "grinning"});
       getUserJournals();
     }
 
@@ -80,7 +81,7 @@ const Form = () => {
               <Slider.Thumb />
             </Slider>
           </HStack>
-          <TextArea placeholder="Whats on your mind?" w="xs" margin="auto" onChangeText={value => setSendData({ ...sendData,
+          <TextArea placeholder="Whats on your mind?" w="xs" margin="auto" value={sendData?.entry || ""} onChangeText={value => setSendData({ ...sendData,
             entry: value,
             user_id: user!.id,
             created_at: moment().toString()
