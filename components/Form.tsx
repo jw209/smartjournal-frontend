@@ -11,6 +11,7 @@ type Journal = {
   entry: string
   created_at: string
   mood: string
+  timestamp: string
 }
 
 const emojiMap = new Map([
@@ -66,6 +67,25 @@ const Form = () => {
       })
       getUserJournals();
     }
+  
+    const listJournals = () => {
+      return <ScrollView w="lg" maxH="70%">
+      <VStack space={4} w="lg">
+        {showData.map(journal => <Container key={journal.id}>
+          <HStack>
+            <Text w="xs" color="success.600">
+              {journal.created_at}
+            </Text>
+            <Emoji name={journal.mood} style={{fontSize: 25}} />
+          </HStack>
+          <Text w="xs">
+            {journal.entry}
+          </Text>
+          <Divider my="2" />
+        </Container>)}
+      </VStack>
+    </ScrollView>
+    }
 
     return <VStack alignContent="center" paddingTop={4} paddingLeft={3} space={3} w="xs">
           <HStack space={4} alignItems="center" w="75%" maxW="300">
@@ -88,22 +108,7 @@ const Form = () => {
           <Button width="xs" onPress={() => {
             addJournal({...sendData})
             }}>Add journal</Button>
-          <ScrollView w="lg" maxH="70%">
-            <VStack space={4} w="lg">
-              {showData.map(journal => <Container key={journal.id}>
-                <HStack>
-                  <Text w="xs" color="success.600">
-                    {journal.created_at}
-                  </Text>
-                  <Emoji name={journal.mood} style={{fontSize: 25}} />
-                </HStack>
-                <Text w="xs">
-                  {journal.entry}
-                </Text>
-                <Divider my="2" />
-              </Container>)}
-            </VStack>
-          </ScrollView>
+          {listJournals()}
       </VStack>
 }
 
