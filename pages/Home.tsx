@@ -4,9 +4,9 @@ import JournalCalendar from "../components/JournalCalendar";
 
 const Home = ({ navigation }: any) => {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={{ flex: 1, alignItems: "center", paddingTop: 20}}>
       <JournalCalendar />
-      <Divider my="5" />
+      <Divider my="1" />
       <Heading>
         Summary
       </Heading>
