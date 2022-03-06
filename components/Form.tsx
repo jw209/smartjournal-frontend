@@ -50,11 +50,11 @@ const Form = () => {
 
     // add journal to the database 
     const addJournal = async (payload: any) => {
-      const { entry, user_id, created_at } = payload;
+      const { entry, user_id, created_at, timestamp } = payload;
       const { data, error } = await supabase
       .from('journals')
       .insert([
-        { entry, user_id, created_at, mood },
+        { entry, user_id, created_at, mood, timestamp },
       ])
       if (error) {
         console.log(error.message);
@@ -103,7 +103,8 @@ const Form = () => {
           <TextArea placeholder="Whats on your mind?" w="xs" margin="auto" onChangeText={value => setSendData({ ...sendData,
             entry: value,
             user_id: user!.id,
-            created_at: moment().toString()
+            created_at: moment().toString(),
+            timestamp: moment().format("YYYY-MM-DD")
           })} maxLength={150} color="white"/>
           <Button width="xs" onPress={() => {
             addJournal({...sendData})
