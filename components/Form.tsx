@@ -11,6 +11,7 @@ type Journal = {
   entry: string
   created_at: string
   mood: string
+  timestamp: string
 }
 
 const emojiMap = new Map([
@@ -49,11 +50,11 @@ const Form = () => {
 
     // add journal to the database 
     const addJournal = async (payload: any) => {
-      const { entry, user_id, created_at } = payload;
+      const { entry, user_id, created_at, timestamp } = payload;
       const { data, error } = await supabase
       .from('journals')
       .insert([
-        { entry, user_id, created_at, mood },
+        { entry, user_id, created_at, mood, timestamp },
       ])
       if (error) {
         console.log(error.message);
@@ -66,6 +67,25 @@ const Form = () => {
       })
       setSendData({...sendData, entry: "", mood: "grinning"});
       getUserJournals();
+    }
+  
+    const listJournals = () => {
+      return <ScrollView w="lg" maxH="70%">
+      <VStack space={4} w="lg">
+        {showData.map(journal => <Container key={journal.id}>
+          <HStack>
+            <Text w="xs" color="success.600">
+              {journal.created_at}
+            </Text>
+            <Emoji name={journal.mood} style={{fontSize: 25}} />
+          </HStack>
+          <Text w="xs">
+            {journal.entry}
+          </Text>
+          <Divider my="2" />
+        </Container>)}
+      </VStack>
+    </ScrollView>
     }
 
     return <VStack alignContent="center" paddingTop={4} paddingLeft={3} space={3} w="xs">
@@ -84,27 +104,13 @@ const Form = () => {
           <TextArea placeholder="Whats on your mind?" w="xs" margin="auto" value={sendData?.entry || ""} onChangeText={value => setSendData({ ...sendData,
             entry: value,
             user_id: user!.id,
-            created_at: moment().toString()
+            created_at: moment().toString(),
+            timestamp: moment().format("YYYY-MM-DD")
           })} maxLength={150} color="white"/>
           <Button width="xs" onPress={() => {
             addJournal({...sendData})
             }}>Add journal</Button>
-          <ScrollView w="lg" maxH="70%">
-            <VStack space={4} w="lg">
-              {showData.map(journal => <Container key={journal.id}>
-                <HStack>
-                  <Text w="xs" color="success.600">
-                    {journal.created_at}
-                  </Text>
-                  <Emoji name={journal.mood} style={{fontSize: 25}} />
-                </HStack>
-                <Text w="xs">
-                  {journal.entry}
-                </Text>
-                <Divider my="2" />
-              </Container>)}
-            </VStack>
-          </ScrollView>
+          {listJournals()}
       </VStack>
 }
 

@@ -12,8 +12,7 @@ const Welcome = ({ navigation }: any) => {
             <Button
               width="40%"
               size="lg"
-              variant="outline"
-              colorScheme="secondary"
+              colorScheme="primary"
               onPress={() => navigation.navigate("Login")}
             >
               LOGIN
@@ -21,8 +20,7 @@ const Welcome = ({ navigation }: any) => {
             <Button
               width="40%"
               size="lg"
-              variant="outline"
-              colorScheme="primary"
+              colorScheme="secondary"
               onPress={() => navigation.navigate("Register")}
             >
               SIGN UP

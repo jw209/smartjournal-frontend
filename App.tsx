@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import Journal from "./pages/Journal";
 import Register from "./pages/Register";
+import Summary from "./pages/Summary";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import { UserContextProvider, useUser } from "./components/UserContext";
@@ -34,6 +35,7 @@ function LoggedInNav() {
         <Drawer.Screen name="Journal" component={Journal} />
         <Drawer.Screen name="Settings" component={Settings} />
         <Drawer.Screen name="Logout" component={Logout} />
+        <Drawer.Screen name="Summary" component={Summary} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
