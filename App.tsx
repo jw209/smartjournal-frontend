@@ -35,7 +35,7 @@ function LoggedInNav() {
         <Drawer.Screen name="Journal" component={Journal} />
         <Drawer.Screen name="Settings" component={Settings} />
         <Drawer.Screen name="Logout" component={Logout} />
-        <Drawer.Screen name="Summary" component={Summary} />
+        <Stack.Screen name="Summary" component={Summary} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

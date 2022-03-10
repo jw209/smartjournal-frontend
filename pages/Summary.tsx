@@ -4,6 +4,7 @@ import { View } from "react-native";
 import supabase from "../services/supabaseClient";
 import "react-native-url-polyfill/auto";
 import Emoji from 'react-native-emoji'
+import {useUser} from "../components/UserContext";
 
 type Journal = {
     id: number
@@ -13,20 +14,32 @@ type Journal = {
     timestamp: string
   }
 
-const Summary = ({route}: any) => {
+const Summary = ({route, navigation}: any) => {
+
+    if (!route?.params) {
+      return <Center><Text>No journal entry found</Text></Center>;
+    }
 
     const { dateString } = route.params;
     const [showData, setShowData] = useState<Array<Journal>>([]);
-    console.log(dateString);
+    const { user } = useUser();
+    // console.log(dateString);
+    if (!dateString) {
+      navigation.navigate("Home");
+    }
 
     useEffect(() => {
         getEntryPerDate()
       }, [])
 
     const getEntryPerDate = async () => {
+        if (!user?.id) {
+          setShowData([]);
+          return;
+        } 
         let { data: journals, error } = await supabase
             .from('journals')
-            .select('*').eq('timestamp', dateString)
+            .select('*').eq('timestamp', dateString).eq('user_id',  user?.id)
             if (error) {
                 console.log(error.message);
                 return;
