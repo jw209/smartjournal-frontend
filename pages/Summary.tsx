@@ -38,7 +38,8 @@ const Summary = ({route}: any) => {
     }
 
     const listJournals = () => {
-        return <ScrollView w="lg" maxH="70%">
+        getEntryPerDate();
+        return <ScrollView w="lg" maxH="100%">
         <VStack space={4} w="lg">
           {showData.map(journal => <Container key={journal.id}>
             <HStack>
@@ -57,7 +58,9 @@ const Summary = ({route}: any) => {
       }
     
     return (
-        <View>
+        <View style={{
+          padding: 15
+        }}>
             {listJournals()}
         </View>
     );
