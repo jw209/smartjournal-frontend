@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Center, Text, VStack, HStack, ScrollView, Container, Divider } from "native-base";
+import { Center, Text, VStack, HStack, ScrollView, Container, Divider, Box, Button } from "native-base";
 import { View } from "react-native";
 import supabase from "../services/supabaseClient";
 import "react-native-url-polyfill/auto";
@@ -74,7 +74,8 @@ const Summary = ({route, navigation}: any) => {
         <View style={{
           padding: 15
         }}>
-            {listJournals()}
+          <Button style={{margin:20}} onPress={() => navigation.goBack()}>Back to Dashboard</Button>
+          {listJournals()}
         </View>
     );
 };
