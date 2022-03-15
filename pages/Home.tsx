@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { View, Heading, Divider } from "native-base";
+import { View, Heading, Divider, Text } from "native-base";
 import { Calendar } from "react-native-calendars"
 
 const Home = ({ navigation }: any) => {
@@ -24,9 +24,12 @@ const Home = ({ navigation }: any) => {
         hideExtraDays={true}
       />
       <Divider my="1" />
-      <Heading>
+      <Heading paddingTop={5}>
         Summary
       </Heading>
+      <Text>
+          Coming soon!
+      </Text>
     </View>
   );
 };

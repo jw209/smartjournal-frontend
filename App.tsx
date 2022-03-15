@@ -1,7 +1,7 @@
 import React from "react";
 import { NativeBaseProvider, extendTheme } from "native-base";
 import { DarkTheme, NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // pages
@@ -27,19 +27,66 @@ export const theme = extendTheme({ config });
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
+const CustomDrawerContent = (props: any) => {
+  const { state, ...rest } = props;
+  const newState = { ...state };
+  newState.routes = newState.routes.filter(
+    (item: any) => item.name !== 'Summary',
+  );
+  
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList state={newState} {...rest} />
+    </DrawerContentScrollView>
+  );
+};
+
 function LoggedInNav() {
   return (
     <NavigationContainer theme={DarkTheme}>
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator 
+        initialRouteName="Home"
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        screenOptions={{
+          headerShown: true,
+        }}>
+        <Drawer.Screen
+          name="Home"
+          component={Home}
+          options={{ title: 'Home' }}
+        />
+        <Drawer.Screen
+          name="Journal"
+          component={Journal}
+          options={{ title: 'Journal' }}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={Settings}
+          options={{ title: 'Settings' }}
+        />
+        <Drawer.Screen
+          name="Logout"
+          component={Logout}
+          options={{ title: 'Logout' }}
+        />
+         <Drawer.Screen
+          name="Summary"
+          component={Summary}
+          options={{ title: 'Summary' }}
+        />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+/*
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="Journal" component={Journal} />
         <Drawer.Screen name="Settings" component={Settings} />
         <Drawer.Screen name="Logout" component={Logout} />
         <Stack.Screen name="Summary" component={Summary} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
-}
+*/
 
 function LoggedOutNav() {
   return (
